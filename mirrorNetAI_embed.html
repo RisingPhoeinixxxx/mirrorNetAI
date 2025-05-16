@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MirrorNet AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #000;
+      color: #39FF14;
+      font-family: 'Orbitron', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+    #activateBtn {
+      padding: 14px 30px;
+      background: #39FF14;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #39FF14;
+      transition: background 0.3s ease;
+    }
+    #activateBtn:hover {
+      background: #28c700;
+    }
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(10, 10, 10, 0.95);
+      border: 2px solid #39FF14;
+      border-radius: 12px;
+      padding: 25px 30px;
+      width: 420px;
+      max-width: 95%;
+      box-shadow: 0 0 30px #39FF14;
+      z-index: 9999;
+      animation: fadeIn 0.8s ease forwards;
+    }
+    .hidden {
+      display: none;
+    }
+    #closeBtn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 28px;
+      color: #FF007F;
+      cursor: pointer;
+      user-select: none;
+    }
+    #closeBtn:hover {
+      color: #FF00C8;
+    }
+    #blockchainLogs {
+      margin-top: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+      border-top: 1px solid #39FF14;
+      padding-top: 12px;
+      text-align: left;
+    }
+    .logItem {
+      padding: 8px 0;
+      border-bottom: 1px solid #1f1f1f;
+      font-family: monospace;
+      font-size: 14px;
+      color: #39FF14;
+      text-shadow: 0 0 5px #39FF14;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #ff00c8; }
+      20% { text-shadow: -2px -2px #00ffff; }
+      40% { text-shadow: 2px -2px #ff00c8; }
+      60% { text-shadow: -2px 2px #00ffff; }
+      80% { text-shadow: 2px 2px #ff00c8; }
+      100% { text-shadow: 0 0 #00ffff; }
+    }
+    .glitch-text {
+      animation: glitch 1s infinite;
+    }
+    @media (max-width: 500px) {
+      #popup {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="activateBtn">Activate MirrorNet AI</button>
+
+  <div id="popup" class="hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <span id="closeBtn" role="button" aria-label="Close popup">×</span>
+    <h2 id="popupTitle" class="glitch-text">MirrorNet AI Activated</h2>
+    <p>Observer Mode: <strong>Online</strong>. Monitoring Threats...</p>
+    <div id="blockchainLogs" aria-live="polite" aria-label="Blockchain Logs"></div>
+  </div>
+
+  <script>
+    const logs = [];
+    function generateLog() {
+      const blockNumber = 450 + logs.length;
+      const log = {
+        time: new Date().toLocaleTimeString(),
+        event: `Block #${blockNumber} Recorded`,
+        hash: '0x' + Math.random().toString(16).substr(2, 10).toUpperCase()
+      };
+      logs.unshift(log);
+      if (logs.length > 10) logs.pop();
+      renderLogs();
+    }
+
+    function renderLogs() {
+      const container = document.getElementById('blockchainLogs');
+      container.innerHTML = '';
+      logs.forEach(log => {
+        const div = document.createElement('div');
+        div.classList.add('logItem');
+        div.textContent = `[${log.time}] ${log.event} — ${log.hash}`;
+        container.appendChild(div);
+      });
+    }
+
+    function showPopup() {
+      document.getElementById('popup').classList.remove('hidden');
+      generateLog();
+    }
+
+    function hidePopup() {
+      document.getElementById('popup').classList.add('hidden');
+    }
+
+    document.getElementById('activateBtn').addEventListener('click', () => {
+      showPopup();
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', () => {
+      hidePopup();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') hidePopup();
+    });
+
+    setInterval(() => {
+      const popup = document.getElementById('popup');
+      if (!popup.classList.contains('hidden')) {
+        generateLog();
+      }
+    }, 6000);
+  </script>
+</body>
+</html>
