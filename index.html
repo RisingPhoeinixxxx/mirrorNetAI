@@ -10,12 +10,12 @@
 <body>
   <button id="activateBtn">Activate MirrorNet AI</button>
 
-  <div id="popup" class="hidden">
-    <span id="closeBtn">×</span>
-    <h2>MirrorNet AI Activated</h2>
-    <p>Observer Mode: Online. Monitoring Threats...</p>
+  <div id="popup" class="hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <span id="closeBtn" role="button" aria-label="Close popup">×</span>
+    <h2 id="popupTitle" class="glitch-text">MirrorNet AI Activated</h2>
+    <p>Observer Mode: <strong>Online</strong>. Monitoring Threats...</p>
 
-    <div id="blockchainLogs"></div>
+    <div id="blockchainLogs" aria-live="polite" aria-label="Blockchain Logs"></div>
   </div>
 
   <script src="script.js"></script>
