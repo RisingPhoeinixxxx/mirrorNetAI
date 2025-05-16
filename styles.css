@@ -1,25 +1,25 @@
-/* Basic Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Body & fonts */
 body {
-  background: #000000;
+  background: #000;
   color: #39FF14;
-  font-family: 'Orbitron', monospace, sans-serif;
+  font-family: 'Orbitron', monospace;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
+  text-align: center;
+  padding: 20px;
 }
 
-/* Button style */
+/* Activate button */
 #activateBtn {
-  padding: 12px 25px;
+  padding: 14px 30px;
   background: #39FF14;
   border: none;
   border-radius: 6px;
@@ -34,63 +34,81 @@ body {
   background: #28c700;
 }
 
-/* Popup container */
+/* Popup box */
 #popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.85);
+  background: rgba(10, 10, 10, 0.95);
   border: 2px solid #39FF14;
   border-radius: 12px;
   padding: 25px 30px;
-  width: 400px;
+  width: 420px;
+  max-width: 95%;
   box-shadow: 0 0 30px #39FF14;
   z-index: 9999;
   animation: fadeIn 0.8s ease forwards;
 }
 
-/* Hidden by default */
 .hidden {
   display: none;
 }
 
-/* Close button */
 #closeBtn {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 16px;
   font-size: 28px;
   color: #FF007F;
   cursor: pointer;
   user-select: none;
-  transition: color 0.3s ease;
 }
 #closeBtn:hover {
   color: #FF00C8;
 }
 
-/* Blockchain logs container */
 #blockchainLogs {
   margin-top: 20px;
-  max-height: 200px;
+  max-height: 250px;
   overflow-y: auto;
   border-top: 1px solid #39FF14;
-  padding-top: 10px;
+  padding-top: 12px;
+  text-align: left;
 }
 
-/* Each log item */
 .logItem {
   padding: 8px 0;
-  border-bottom: 1px solid #0F0F0F;
+  border-bottom: 1px solid #1f1f1f;
   font-family: monospace;
   font-size: 14px;
   color: #39FF14;
   text-shadow: 0 0 5px #39FF14;
 }
 
-/* Fade in animation */
+/* Animations */
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px #ff00c8; }
+  20% { text-shadow: -2px -2px #00ffff; }
+  40% { text-shadow: 2px -2px #ff00c8; }
+  60% { text-shadow: -2px 2px #00ffff; }
+  80% { text-shadow: 2px 2px #ff00c8; }
+  100% { text-shadow: 0 0 #00ffff; }
+}
+
+.glitch-text {
+  animation: glitch 1s infinite;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  #popup {
+    width: 90%;
+    padding: 20px;
+  }
 }
